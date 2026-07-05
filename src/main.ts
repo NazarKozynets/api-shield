@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -17,6 +18,15 @@ async function bootstrap() {
   );
 
   const port = Number(process.env.PORT) || 3000;
+
+  const config = new DocumentBuilder()
+    .setTitle('API SHIELD')
+    .setDescription('API description')
+    .setVersion('1.0')
+    .addTag('shield')
+    .build();
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, documentFactory);
 
   await app.listen(port, '0.0.0.0');
 }
