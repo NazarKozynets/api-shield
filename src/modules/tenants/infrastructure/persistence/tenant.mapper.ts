@@ -1,5 +1,5 @@
 import { TenantEntity } from '../../domain/entities/tenant.entity';
-import { TenantStatus as PrismaTenantStatus } from 'generated/prisma/enums';
+import { TenantStatus as PrismaTenantStatus } from '@prisma/client';
 import { TenantStatus } from '../../domain/enums/tenant.enum';
 
 type PrismaTenantPersistence = {

@@ -5,8 +5,11 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
+import { ExceptionsFilter } from './common/filters/exceptions.filter';
+import { AppLogger } from './common/logger/app.logger';
 
 async function bootstrap() {
+  const logger = new AppLogger('Bootstrap', { suppressNestStartupLogs: true });
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({
@@ -14,8 +17,10 @@ async function bootstrap() {
     }),
     {
       rawBody: true,
+      logger,
     },
   );
+  app.useGlobalFilters(new ExceptionsFilter(logger));
 
   const port = Number(process.env.PORT) || 3000;
 
@@ -29,6 +34,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory);
 
   await app.listen(port, '0.0.0.0');
+  logger.log(`NestJS application successfully started in ${process.env.NODE_ENV} mode on port ${port}`);
 }
 
 void bootstrap();

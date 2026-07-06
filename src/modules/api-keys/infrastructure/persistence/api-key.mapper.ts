@@ -1,6 +1,6 @@
 import { ApiKeyEntity } from '../../domain/entities/api-key.entity';
 import { ApiKeyStatus } from '../../domain/enums/api-key.enum';
-import { ApiKeyStatus as PrismaApiKeyStatus } from 'generated/prisma/enums';
+import { ApiKeyStatus as PrismaApiKeyStatus } from '@prisma/client';
 
 type PrismaApiKeyPersistence = {
   id: string;

@@ -8,6 +8,8 @@ import { ApiKeysModule } from './modules/api-keys/api-keys.module';
 @Module({
   imports: [HealthModule, ApiKeysModule],
   controllers: [AppController, HealthController],
-  providers: [AppService],
+  providers: [
+    AppService
+  ],
 })
 export class AppModule {}
